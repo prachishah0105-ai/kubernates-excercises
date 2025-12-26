@@ -1,0 +1,12 @@
+{
+  "name": "log-output",
+  "version": "1.0.0",
+  "description": "Exercise 1.1 for DevOps with Kubernetes",
+  "main": "index.js",
+  "dependencies": {
+    "uuid": "^9.0.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
