@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: todo-app-svc
 spec:
-  type: NodePort
+  type: ClusterIP # Change this from NodePort
   selector:
-    app: todo-app # This MUST match the label in your deployment.yaml
+    app: todo-app
   ports:
-    - nodePort: 30080 # This port is opened on your k3d nodes
+    - port: 2345
       protocol: TCP
-      port: 1234      # This port is used inside the cluster
-      targetPort: 3000 # This is the port your app listens on
+      targetPort: 3000
