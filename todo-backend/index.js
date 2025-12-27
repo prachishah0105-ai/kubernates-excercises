@@ -24,5 +24,5 @@ app.post('/todos', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Backend started on port ${PORT}`);
+  const PORT = process.env.PORT || 3000; app.listen(PORT);
 });
