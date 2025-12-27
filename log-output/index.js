@@ -13,3 +13,7 @@ const printLog = () => {
 };
 
 printLog();
+
+app.get('/', (req, res) => {
+  res.send(`Current status: ${randomString} at ${new Date().toISOString()}`);
+});
