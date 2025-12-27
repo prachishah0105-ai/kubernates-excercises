@@ -12,6 +12,19 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: shared-logs
+          emptyDir: {} # This is the shared storage
       containers:
-        - name: log-output
-          image: prachishah0105/log-output:v1.0 # Use your Docker Hub image name here
+        - name: log-generator
+          image: prachishah0105/log-output:v1.0 
+          command: ["node", "generator.js"] # This starts the writer
+          volumeMounts:
+            - name: shared-logs
+              mountPath: /usr/src/app/files
+        - name: log-reader
+          image: prachishah0105/log-output:v1.0 
+          command: ["node", "index.js"] # This starts the server
+          volumeMounts:
+            - name: shared-logs
+              mountPath: /usr/src/app/files
