@@ -17,3 +17,4 @@
 - [2.2](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.2/todo-app)
 - [2.3](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.3/log-output)
 - [2.4](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.4/todo-app)
+- [2.5](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.5/log-output)
