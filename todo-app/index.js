@@ -4,7 +4,7 @@ app.get('/', async (req, res) => {
   await fetchImage(); // Your 1.12 logic
   
   // Fetch todos from the BACKEND SERVICE
-  const response = await axios.get('http://todo-backend-svc:2345/todos');
+  const response = await axios.get(process.env.BACKEND_URL + "/todos");
   const todos = response.data;
 
   res.send(`
