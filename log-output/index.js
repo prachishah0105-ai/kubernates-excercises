@@ -1,19 +1,25 @@
-// index.js
-const { v4: uuidv4 } = require('uuid');
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-
-const randomId = uuidv4();
-
-const printLog = () => {
-  const timestamp = new Date().toISOString();
-  console.log(`${timestamp}: ${randomId}`);
-  
-
-  setTimeout(printLog, 5000);
-};
-
-printLog();
+// This path MUST match the mountPath in your deployment.yaml
+const filePath = path.join('/', 'usr', 'src', 'app', 'files', 'log.txt');
 
 app.get('/', (req, res) => {
-  res.send(`Current status: ${randomString} at ${new Date().toISOString()}`);
+    try {
+        if (fs.existsSync(filePath)) {
+            const content = fs.readFileSync(filePath, 'utf8');
+            res.send(`<h1>Log Output</h1><pre>${content}</pre>`);
+        } else {
+            res.send('Waiting for logs... (File not found at ' + filePath + ')');
+        }
+    } catch (err) {
+        res.status(500).send('Error reading log file');
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server started in port ${PORT}`);
 });
