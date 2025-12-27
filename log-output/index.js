@@ -21,3 +21,13 @@ app.get('/', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server started in port ${PORT}`);
 });
+const fs = require('fs');
+const path = require('path');
+
+const message = process.env.MESSAGE; // From ConfigMap env
+const filePath = path.join(__dirname, 'config', 'information.txt');
+const fileContent = fs.readFileSync(filePath, 'utf8'); // From ConfigMap volume
+
+// In your output logic:
+console.log(`file content: ${fileContent}`);
+console.log(`env variable: MESSAGE=${message}`);
