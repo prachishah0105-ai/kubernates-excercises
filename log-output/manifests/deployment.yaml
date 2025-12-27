@@ -1,5 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-output-dep
+  namespace: exercises # This is required for Exercise 2.3
 spec:
-
-  containers:
-    - name: ...
-
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-output
+  template:
+    metadata:
+      labels:
+        app: log-output
+    spec:
+      containers:
+        - name: log-output
+          image: prachishah0105/log-output:v1.0 # Use your actual image name
+          env:
+            - name: RANDOM_STRING
+              value: "Hello-from-2.3"
