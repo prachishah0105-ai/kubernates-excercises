@@ -33,6 +33,28 @@ app.get('/', async (req, res) => {
     <form><input type="text"><button>Create TODO</button></form>
   `);
 });
+app.get('/', async (req, res) => {
+  await fetchImage();
+  
+  // Hardcoded list of todos
+  const todos = ['Work on Kubernetes exercise', 'Finish the project', 'Deploy to cluster'];
+
+  res.send(`
+    <h1>Todo App</h1>
+    <img src="/files/image.jpg" width="400" />
+    
+    <div style="margin-top: 20px;">
+      <form>
+        <input type="text" maxlength="140" placeholder="Type your todo here...">
+        <button type="submit">Create TODO</button>
+      </form>
+    </div>
+
+    <ul style="margin-top: 20px;">
+      ${todos.map(todo => `<li>${todo}</li>`).join('')}
+    </ul>
+  `);
+});
 
 // Serve the image file so the browser can see it
 app.use('/files', express.static(dir));
