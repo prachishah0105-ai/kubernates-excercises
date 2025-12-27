@@ -1,10 +1,5 @@
 spec:
-  volumes:
-    - name: shared-storage
-      persistentVolumeClaim:
-        claimName: log-pvc # This matches the name in your PVC file
+
   containers:
     - name: ...
-      volumeMounts:
-        - name: shared-storage
-          mountPath: /usr/src/app/files
+
