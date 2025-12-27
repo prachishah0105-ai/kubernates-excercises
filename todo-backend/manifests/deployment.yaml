@@ -9,6 +9,6 @@ spec:
       containers:
         - name: todo-backend
           image: prachishah0105/todo-backend:v1.1
-          env:
-            - name: PORT
-              value: "3000"
+          envFrom:
+            - configMapRef:
+                name: project-config
