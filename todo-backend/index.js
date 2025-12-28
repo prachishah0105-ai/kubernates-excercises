@@ -15,6 +15,15 @@ app.get('/todos', (req, res) => {
 // POST: Receive a new todo from the frontend
 app.post('/todos', (req, res) => {
   const newTodo = req.body.todo;
+  // 1. Check if the todo exceeds 140 characters
+  if (todo && todo.length > 140) {
+    // 2. Log a specific "Rejected" message to stdout
+    // Promtail will send this console.error to Loki automatically
+    console.error(`Rejected todo: "${todo.substring(0, 15)}..." Reason: Too long (${todo.length} chars)`);
+    
+    // 3. Return a 400 Bad Request to the client
+    return res.status(400).send("Todo is too long (max 140 characters).");
+  }
   if (newTodo && newTodo.length <= 140) {
     todos.push(newTodo);
     res.status(201).send('Todo added');
