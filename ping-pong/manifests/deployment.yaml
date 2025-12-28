@@ -15,4 +15,7 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: prachishah0105/ping-pong:v1.0 # Use your actual image name
+          image: prachishah0105/ping-pong:v1.2 # Update with your image tag
+          env:
+            - name: DATABASE_URL
+              value: "postgres://postgres:example@postgres-svc:5432/postgres" #
