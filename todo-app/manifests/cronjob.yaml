@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: wiki-todo-generator
+  namespace: project # Important: Must be in the same namespace as your backend
+spec:
+  schedule: "0 * * * *" # This means "at the start of every hour"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: generator
+            image: curlimages/curl:latest # A small image that can send web requests
+            command: ["/bin/sh", "-c"]
+            args:
+              - |
+                # 1. Get the random Wikipedia URL
+                # 2. Extract the 'location' header (the actual link)
+                # 3. POST it to your backend service
+                URL=$(curl -s -I https://en.wikipedia.org/wiki/Special:Random | grep -i location | cut -d ' ' -f 2)
+                curl -X POST -H "Content-Type: application/json" -d "{\"todo\": \"Read $URL\"}" http://todo-backend-svc:2345/todos
+          restartPolicy: OnFailure
