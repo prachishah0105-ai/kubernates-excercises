@@ -12,3 +12,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: project-config
+env:
+  - name: DATABASE_URL
+    value: "postgres://postgres:todo-password@postgres-svc:5432/postgres"
