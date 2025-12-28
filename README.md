@@ -21,3 +21,4 @@
 - [2.6](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.6/todo-app)
 - [2.7](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.7/ping-pong)
 - [2.8](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.8/todo-backend)
+- [2.9](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.9/todo-app)
