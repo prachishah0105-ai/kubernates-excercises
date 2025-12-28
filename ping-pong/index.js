@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-let counter = 0;
+postgres://postgres:example@postgres-svc:5432/postgres;
+UPDATE counters SET value = value + 1;
 
 // This endpoint is for the user/browser
 app.get('/pingpong', (req, res) => {
