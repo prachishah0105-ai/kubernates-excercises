@@ -1,4 +1,4 @@
-
+I have used and encountered the following technologies during this course:TechnologyCategoryRole in my ProjectsGKEDirectly UsedManaged Kubernetes platform for hosting the final apps.GitHub ActionsDirectly UsedCI/CD pipeline automation for builds and deployments.PostgreSQLDirectly UsedDatabase for the Todo-app and Ping-pong data.Prometheus/GrafanaDirectly UsedMonitoring and visualization of cluster metrics.ArgoCD / FluxEncounteredGitOps tools for continuous delivery (Chapter 4).Istio / LinkerdEncounteredService Mesh for traffic management and security (Chapter 5).LinkerdIndirectly UsedI explored the control plane for service mesh observability.K3s / K3dDirectly UsedLocal development environment for initial testing.Summary: This course has provided me with a deep understanding of how Kubernetes acts as a "platform for platforms," connecting CI/CD, monitoring, and networking into a single automated lifecycle.
 ## Exercise 3.9: DBaaS vs DIY
 
 | Feature | DBaaS (e.g., Google Cloud SQL) | DIY (Database in Kubernetes) |
