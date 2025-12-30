@@ -16,6 +16,20 @@ app.get('/', async (req, res) => {
     } catch (error) {
         res.send(`${timestamp}: ${randomString}. Ping / Pongs: Error fetching pongs`);
     }
+    // Log-output health check
+app.get('/healthz', async (req, res) => {
+  try {
+    // We try to ping the Ping-pong service using its internal Kubernetes DNS
+    const response = await axios.get('http://pingpong-svc:80/healthz');
+    if (response.status === 200) {
+      res.status(200).send('OK');
+    } else {
+      res.status(500).send('Ping-pong is not healthy');
+    }
+  } catch (err) {
+    res.status(500).send('Cannot reach Ping-pong service');
+  }
+});
 });
 
 app.listen(PORT, () => {
