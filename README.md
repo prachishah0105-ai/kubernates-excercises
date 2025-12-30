@@ -36,6 +36,10 @@
 - [3.1: Pingpong GKE](https://github.com/prachishah0105-ai/kubernates-excercises/tree/main/3.1)
 - [3.2: Project and Ping-pong](https://github.com/prachishah0105-ai/kubernates-excercises/tree/main/3.2)
 - [3.3: https://github.com/prachishah0105-ai/kubernates-excercises/actions/runs/20593437682](./.github/workflows/deploy.yaml)
+- ### [Exercise 3.3: GitHub Actions](https://github.com/prachishah0105-ai/kubernates-excercises/tree/main/.github/workflows)
+
+- **Workflow YAML**: [deploy.yaml](https://github.com/prachishah0105-ai/kubernates-excercises/blob/main/.github/workflows/deploy.yaml)
+- **Successful Action Run**: [Run #20593437682](https://github.com/prachishah0105-ai/kubernates-excercises/actions/runs/20593437682)
 
 - ## Exercise 4.1: Readiness Probes
 
