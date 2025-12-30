@@ -1,21 +1,25 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - manifests/deployment.yaml
-  - manifests/service.yaml
-images:
-  - name: PROJECT/IMAGE # Step 2 looks for this name to update it
-    newName: prachishah0105-ai/todo-backend
-- name: Update image tag in Config Repo
+name: Build and Push to Config Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ... (Add your Docker build/push steps here) ...
+
+      - name: Update image tag in Config Repo
         uses: EndBug/add-and-commit@v9
         with:
-          # 1. Point to your NEW configuration repository
-          repository: prachishah0105-ai/todo-app-config 
-          
-          # 2. Tell it which file to change (the staging overlay)
+          repository: prachishah0105-ai/todo-app-config
+          branch: main
           add: 'overlays/staging/kustomization.yaml'
-          
-          # 3. Use the secret you just saved!
+          # Use the secret you saved earlier
           github_token: ${{ secrets.GIT_TOKEN }} 
-          
           message: "Update staging image to ${{ github.sha }}"
