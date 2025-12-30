@@ -1,1 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ping-pong-dep
+  namespace: exercises #
+spec:
+  replicas: 3 # Use at least 3 replicas to see the rolling effect
+  # --- ADD THIS STRATEGY BLOCK ---
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Can create 1 extra pod during update
+      maxUnavailable: 0  # Always keep at least the original number of pods running
+  # -------------------------------
+  template:
+    spec:
+      containers:
+        - name: pingpong-container
+          image: prachishah0105-ai/ping-pong:v2
+          # Keep your resources and probes from before!
+      containers:
+        - name: pingpong-container
+          image: prachishah0105-ai/ping-pong:v2
+          # --- ADD THIS BLOCK ---
+          resources:
+            requests:
+              cpu: "50m"      # Request 0.05 CPU cores
+              memory: "64Mi"  # Request 64 MB of RAM
+            limits:
+              cpu: "100m"     # Max 0.1 CPU cores
+              memory: "128Mi" # Max 128 MB of RAM
+          # ----------------------
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+      readinessProbe:
+  httpGet:
+    path: /healthz
+    port: 3000 # Matches the PORT in your index.js screenshot
+  initialDelaySeconds: 10
+  periodSeconds: 5
+        - name: ping-pong
+          image: prachishah0105/ping-pong:v1.2 # Update with your image tag
+          env:
+            - name: DATABASE_URL
+              value: "postgres://postgres:example@postgres-svc:5432/postgres" #
 
