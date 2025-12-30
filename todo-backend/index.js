@@ -28,6 +28,18 @@ app.post('/todos', (req, res) => {
     todos.push(newTodo);
     res.status(201).send('Todo added');
   } else {
+    // Exercise 4.2: Health check for Todo-backend
+app.get('/healthz', async (req, res) => {
+  try {
+    // This ensures the backend only becomes READY when the DB is connected
+    // Ensure you have your pool/db client initialized as you did in ping-pong
+    await pool.query('SELECT 1'); 
+    res.status(200).send('OK');
+  } catch (err) {
+    console.error('Database connection failed');
+    res.status(500).send('Not Ready');
+  }
+});
     res.status(400).send('Invalid todo');
   }
 });
