@@ -4,19 +4,20 @@ metadata:
   name: ping-pong-dep
   namespace: exercises #
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: ping-pong
+  replicas: 3 # Use at least 3 replicas to see the rolling effect
+  # --- ADD THIS STRATEGY BLOCK ---
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Can create 1 extra pod during update
+      maxUnavailable: 0  # Always keep at least the original number of pods running
+  # -------------------------------
   template:
-    metadata:
-      labels:
-        app: ping-pong
     spec:
       containers:
-      spec:
-  template:
-    spec:
+        - name: pingpong-container
+          image: prachishah0105-ai/ping-pong:v2
+          # Keep your resources and probes from before!
       containers:
         - name: pingpong-container
           image: prachishah0105-ai/ping-pong:v2
