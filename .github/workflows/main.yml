@@ -1,0 +1,14 @@
+# Inside your .github/workflows/main.yml
+- name: Set up Kustomize
+  uses: imranismail/setup-kustomize@v2
+
+- name: Use right image
+  # This updates the kustomization.yaml file locally in the runner
+  run: kustomize edit set image PROJECT/IMAGE=prachishah0105-ai/todo-backend:${{ github.sha }}
+
+- name: Commit kustomization.yaml to GitHub
+  # This pushes the changed file back to your repo so ArgoCD can see it
+  uses: EndBug/add-and-commit@v9
+  with:
+    add: 'todo-app/kustomization.yaml'
+    message: New version released ${{ github.sha }}
