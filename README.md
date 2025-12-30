@@ -23,3 +23,10 @@
 - [2.8](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.8/todo-backend)
 - [2.9](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.9/todo-app)
 - [2.10](https://github.com/prachishah0105-ai/kubernates-excercises/tree/2.10/todo-backend)
+- ## Exercise 4.1: Readiness Probes
+
+I have implemented readiness probes for both the Ping-pong and Log-output applications:
+
+* **Ping-pong**: Added a `/healthz` endpoint that checks the database connection using a `SELECT 1` query. The deployment manifest now includes a `readinessProbe` that pings this endpoint.
+* **Log-output**: Added a `/healthz` endpoint that verifies connectivity to the Ping-pong service. Its `readinessProbe` ensures it only becomes READY after the Ping-pong service is healthy.
+* **Verification**: I verified the implementation by scaling the database to 0 replicas. As expected, the Ping-pong pod changed to `0/1 READY`, and subsequently, the Log-output pod also became unready.
