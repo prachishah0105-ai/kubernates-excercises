@@ -1,4 +1,14 @@
-# Kubernetes Exercises
+
+## Exercise 3.9: DBaaS vs DIY
+
+| Feature | DBaaS (e.g., Google Cloud SQL) | DIY (Database in Kubernetes) |
+| :--- | :--- | :--- |
+| **Initialization** | **Effort**: Extremely low. Can be set up via a few clicks or a single Terraform command. **Cost**: Higher initial base cost for the managed instance. | **Effort**: Higher. Requires manual configuration of StatefulSets, PersistentVolumeClaims, and Secrets. **Cost**: Low; uses existing cluster resources. |
+| **Maintenance** | **Minimal**: The cloud provider handles OS updates, database patching, and hardware health. | **Significant**: You are responsible for version upgrades, patching, and managing storage scaling. |
+| **Backups** | **Built-in**: Offers automated daily snapshots and point-in-time recovery with simple toggles. | **Manual**: Requires setting up CronJobs (like `pg_dump`) and managing external storage for backup files. |
+| **Ease of Use** | **High**: Excellent developer experience; allows focus on the app logic rather than infrastructure. | **Moderate**: Requires deep Kubernetes knowledge to ensure data persistence and high availability. |
+
+**Conclusion**: For production, I would choose **DBaaS** because the time saved on maintenance and the security of automated backups far outweigh the monthly service fee.# Kubernetes Exercises
 
 - [1.1](https://github.com/prachishah0105-ai/kubernates-excercises/tree/1.1/log-output)
 - [1.2](https://github.com/prachishah0105-ai/kubernates-excercises/tree/1.2/todo-app)
