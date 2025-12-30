@@ -7,10 +7,21 @@ spec:
   template:
     spec:
       containers:
-      readinessProbe:
-  httpGet:
-    path: /healthz
-    port: 3000 # Matches the PORT variable in your code
+        - name: todo-backend
+          image: prachishah0105-ai/todo-backend:v2
+          # --- ADD THIS ---
+          resources:
+            requests:
+              cpu: "100m"      # 0.1 CPU core
+              memory: "128Mi"  # 128 MB RAM
+            limits:
+              cpu: "200m"      # 0.2 CPU core
+              memory: "256Mi"  # 256 MB RAM
+          # ----------------
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
   initialDelaySeconds: 15
   periodSeconds: 5
         - name: todo-backend
