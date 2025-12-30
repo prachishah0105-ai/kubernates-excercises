@@ -1,8 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: todo-app-ingress
-  namespace: project
+  name: todo-ingress
+  annotations:
+    # This is important for some ingress controllers to handle paths correctly
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
@@ -11,6 +13,13 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: todo-app-svc
+            name: todo-frontend-svc # Must match your frontend service name
             port:
-              number: 2345
+              number: 80
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: todo-backend-svc # Must match your backend service name
+            port:
+              number: 80
