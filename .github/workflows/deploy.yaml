@@ -26,10 +26,12 @@ jobs:
           location: '${{ secrets.GKE_ZONE }}'
 
       # 3. Build and Push Docker Image
+
       - name: Build and Publish
         run: |
-          docker build -t gcr.io/${{ secrets.GKE_PROJECT }}/ping-pong:$GITHUB_SHA ./3.1
-          docker push gcr.io/${{ secrets.GKE_PROJECT }}/ping-pong:$GITHUB_SHA
+          # Use your Project ID in the image path
+          docker build -t gcr.io/composed-amulet-482806-i3/ping-pong:$GITHUB_SHA ./3.1
+          docker push gcr.io/composed-amulet-482806-i3/ping-pong:$GITHUB_SHA
 
       # 4. Deploy to Cluster
       - name: Deploy
