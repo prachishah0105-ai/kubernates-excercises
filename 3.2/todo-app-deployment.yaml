@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app-dep
+  namespace: project
+spec:
+  template:
+    spec:
+      containers:
+        - name: todo-app
+          image: prachishah0105/todo-app:v1.1 # Ensure your code uses process.env.BACKEND_URL
+          envFrom:
+            - configMapRef:
+                name: project-config # This pulls all keys from the ConfigMap as env vars
