@@ -1,14 +1,42 @@
-# Inside your .github/workflows/main.yml
-- name: Set up Kustomize
-  uses: imranismail/setup-kustomize@v2
+name: Release Todo App
 
-- name: Use right image
-  # This updates the kustomization.yaml file locally in the runner
-  run: kustomize edit set image PROJECT/IMAGE=prachishah0105-ai/todo-backend:${{ github.sha }}
+on:
+  push:
+    branches:
+      - main # This triggers every time you push to your main branch
 
-- name: Commit kustomization.yaml to GitHub
-  # This pushes the changed file back to your repo so ArgoCD can see it
-  uses: EndBug/add-and-commit@v9
-  with:
-    add: 'todo-app/kustomization.yaml'
-    message: New version released ${{ github.sha }}
+jobs:
+  build-publish-deploy:
+    name: Build, Push and Update Manifests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # We use the GITHUB_SHA to give every build a unique, traceable tag
+      - name: Build and publish backend
+        run: |-
+          docker build --tag "prachishah0105-ai/todo-backend:$GITHUB_SHA" ./todo-app/todo-backend
+          docker push "prachishah0105-ai/todo-backend:$GITHUB_SHA"
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2
+
+      - name: Use right image
+        # This command modifies your todo-app/kustomization.yaml file automatically
+        run: |-
+          cd todo-app
+          kustomize edit set image TODO_BACKEND_IMAGE=prachishah0105-ai/todo-backend:$GITHUB_SHA
+
+      - name: Commit kustomization.yaml to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'todo-app/kustomization.yaml'
+          message: New version released ${{ github.sha }}
