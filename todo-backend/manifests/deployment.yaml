@@ -7,6 +7,12 @@ spec:
   template:
     spec:
       containers:
+      readinessProbe:
+  httpGet:
+    path: /healthz
+    port: 3000 # Matches the PORT variable in your code
+  initialDelaySeconds: 15
+  periodSeconds: 5
         - name: todo-backend
           image: prachishah0105/todo-backend:v1.1
           envFrom:
