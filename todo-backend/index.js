@@ -47,3 +47,13 @@ app.get('/healthz', async (req, res) => {
 app.listen(PORT, () => {
   const PORT = process.env.PORT || 3000; app.listen(PORT);
 });
+const { connect, JSONCodec } = require('nats');
+const jc = JSONCodec();
+
+async function startNats() {
+  const nc = await connect({ servers: process.env.NATS_URL || "nats://my-nats:4222" });
+  
+  // Inside your POST /todos route:
+  const message = { user: "bot", message: `New todo: ${newTodo.content}` };
+  nc.publish("todo_created", jc.encode(message));
+}
