@@ -26,6 +26,7 @@
 - [4.1](https://github.com/prachishah0105-ai/kubernates-excercises/tree/4.1/ping-pong)
 - [4.2](https://github.com/prachishah0105-ai/kubernates-excercises/tree/4.2/todo-backend)
 - [4.3](https://github.com/prachishah0105-ai/kubernates-excercises/tree/4.3/ping-pong)
+- [4.4](https://github.com/prachishah0105-ai/kubernates-excercises/tree/4.4/ping-pong)
 - ## Exercise 4.1: Readiness Probes
 
 I have implemented readiness probes for both the Ping-pong and Log-output applications:
