@@ -35,6 +35,8 @@
 - [4.10: The Grande Finale (Dedicated Config Repo)](https://github.com/prachishah0105-ai/todo-app-config)
 - [3.1: Pingpong GKE](https://github.com/prachishah0105-ai/kubernates-excercises/tree/main/3.1)
 - [3.2: Project and Ping-pong](https://github.com/prachishah0105-ai/kubernates-excercises/tree/main/3.2)
+- [3.3: https://github.com/prachishah0105-ai/kubernates-excercises/actions/runs/20593437682](./.github/workflows/deploy.yaml)
+
 - ## Exercise 4.1: Readiness Probes
 
 I have implemented readiness probes for both the Ping-pong and Log-output applications:
