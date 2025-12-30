@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingpong-svc
+spec:
+  type: LoadBalancer # Tells the cloud to give you an External IP
+  selector:
+    app: pingpong
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 3000 # Your application's internal port
