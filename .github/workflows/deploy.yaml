@@ -35,8 +35,8 @@ jobs:
       # 2. Get GKE Credentials to allow kubectl to talk to your cluster
       - uses: google-github-actions/get-gke-credentials@v2
         with:
-          cluster_name: '${{ secrets.GKE_CLUSTER }}'
-          location: '${{ secrets.GKE_ZONE }}'
+          cluster_name: '${{My First Project }}'
+          location: '${{ https://console.cloud.google.com/iam-admin/settings?project=composed-amulet-482806-i3}}'
 
       # 3. Build and Push Docker Image using your Project ID
       - name: Build and Publish
