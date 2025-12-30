@@ -13,6 +13,9 @@ app.get('/todos', (req, res) => {
 });
 
 // POST: Receive a new todo from the frontend
+// Add NATS publishing logic here after saving the todo
+const message = { message: `A new todo was created: ${newTodo}` };
+nc.publish("todo_notifications", jc.encode(message));
 app.post('/todos', (req, res) => {
   const newTodo = req.body.todo;
   // 1. Check if the todo exceeds 140 characters
