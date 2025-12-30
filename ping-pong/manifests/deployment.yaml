@@ -14,6 +14,25 @@ spec:
         app: ping-pong
     spec:
       containers:
+      spec:
+  template:
+    spec:
+      containers:
+        - name: pingpong-container
+          image: prachishah0105-ai/ping-pong:v2
+          # --- ADD THIS BLOCK ---
+          resources:
+            requests:
+              cpu: "50m"      # Request 0.05 CPU cores
+              memory: "64Mi"  # Request 64 MB of RAM
+            limits:
+              cpu: "100m"     # Max 0.1 CPU cores
+              memory: "128Mi" # Max 128 MB of RAM
+          # ----------------------
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
       readinessProbe:
   httpGet:
     path: /healthz
