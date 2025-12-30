@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broadcaster-dep
+  namespace: default
+spec:
+  replicas: 6 # Mandatory: Scaled to 6 for Exercise 4.6
+  selector:
+    matchLabels:
+      app: broadcaster
+  template:
+    metadata:
+      labels:
+        app: broadcaster
+    spec:
+      containers:
+        - name: broadcaster
+          image: prachishah0105-ai/broadcaster:v1 # Make sure this matches your build tag
+          env:
+            - name: NATS_URL
+              value: "nats://my-nats.default.svc.cluster.local:4222" # Internal DNS for NATS
+            - name: WEBHOOK_URL
+              value: "YOUR_CHAT_WEBHOOK_URL"
