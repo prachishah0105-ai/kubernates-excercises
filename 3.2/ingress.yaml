@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-ingress
+  annotations:
+    # This tells GKE to create a Google Cloud Load Balancer
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - http:
+      paths:
+      # 1. Route for the Todo-App (Project)
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: todo-app-svc  # Make sure this matches your project service name
+            port:
+              number: 80
+      
+      # 2. Route for the Ping-Pong App
+      - path: /pingpong
+        pathType: Prefix
+        backend:
+          service:
+            name: pingpong-svc  # Make sure this matches your pingpong service name
+            port:
+              number: 80
