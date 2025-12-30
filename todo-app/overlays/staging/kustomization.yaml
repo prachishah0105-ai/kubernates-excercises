@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+namePrefix: staging-
+namespace: staging # Requirement: separate namespace
+images:
+  - name: TODO_BACKEND_IMAGE
+    newName: prachishah0105-ai/todo-backend
+    newTag: latest
