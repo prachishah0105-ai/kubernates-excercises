@@ -14,26 +14,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 1. Login to Google Cloud (You'll need Secrets for this later)
+      # 1. Login to Google Cloud using your Service Account Key secret
       - uses: google-github-actions/auth@v2
         with:
-          credentials_json: '${{ secrets.GKE_SA_KEY }}'
+          credentials_json: '${{{
+  "type": "service_account",
+  "project_id": "composed-amulet-482806-i3",
+  "private_key_id": "8a2e3214b97bee049a3c76c83edbc039061c8d94",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDMe7oC7EAKzY3b\nKuE+31yAYdf9LQtFZlC/dTzXaM/tUkavHrJkB3QYfm5E1aiDrrcWu9JyCnWmz6/M\ngLYHssBb7HA2DXNEi2JLmosgs4h0Ydrj/q6F6v/S1ZfIjMCIqDD9zFIXO2eArP4U\n9Z0kG+Tj76u0OZmQr0s86mIjlKenh9o0r2TfgGY7ueWs6mAA86cWIHuI8v24TDFB\n1IUMyCSULHE5fsG47Av2FRYl8lBDB0CUCj464Agbge639bPxZQEC3wluT3o5XLd2\nIaZiJO9pCo48BpEy6cuFZaChpfkmdnJEfNI9GboA0HHcaXlKJMjOWNxpklb+vl60\nOU0hU1MdAgMBAAECggEAJBD1mdLgJ9eiG+RIBs4gM1+umC/j80ls2BweT1MkC3SN\n1ZDpP4XmBvTzz43M028TSX32zBkGr9WlaQFRufFgBsag8xOzv0UDYRjgzbOEz5w7\n3qda0nGEzkPQqfWTdvcNbxJk70aRxqschIdewFHwMPjitN7M9G1KrLOdfC+Z040s\ngcwarNQ9L+yl1WJfMadP/2Zs0G5CzSKU7zNW9HmEAm0+M1geB+CSbmHO88UQ1Klb\nYlGlwFuKSXp3d9o6AYj4WMtLu/dD41SnQqMcnIuDhFakGNtRhndtgFXOjy/Zf0Lf\noQZA1o3oivrN5HhRB25KlBc6gG0DEx1sehsGqLvK8QKBgQDz+zT9pYaucvHC/rwp\nubbVW0XMeMqWQ8Q6Egszt7yBkJrdHGGcGzYdjKTrDXkd1e6+uUVbXZruduZ/HUB7\nSOegJn8RIlftMwQKR/vXNmY4kytA7fJYsJEiu7jj6NpZSMIyjxPj0eFy+M4f+0EU\nGBpfwO9aIS6gN2Vtm/2D7XntkQKBgQDWjmtqgAh6djpS8tS4gwL1HZ/+5l1+8EjH\ngQPBCJWbHrFfeuG63Py7s8vQuVdy2JeLraT0XDQEKm84m1nzvLdAHz/Z1tJaY75x\nw9+tD7cpKQp76x+ibOBGmCL9/+TiYw15noBtMlur359N8qvXhziaTzV77y6ZuZEP\nRNv04Zu2zQKBgQDERRSm667BzYQBOo1B/70+O7OVvqIyaYeEs5lBXJCPpjV+pGM9\ngoJxGQBeerMxNjVeRoqt6kpFhW79WRnTU53Jrs5PiVI0ZfLdFnVY9tEauAF2tTRc\n9oV67IrbBSoJ40ceBw2YGvIDXHXtMmFy+cTVvM6PsdvhVU8J8w/pPnP0kQKBgQDT\nOTxoiYlPPmtm0+c1iszzkOm9YP70hAuyVMHkXNYj81B9hhUKCJrLE1N4ta5wwuhW\nu2lkpA0VeM0r9kzVFpl1iA4tID7Qe9e2WjYvQwR3gg7vNedb2UHmXco9MpobgZZ3\nf+JBHk1/ZFSJwXkJYvcHeylVTIAdGMHFPW4po53PlQKBgQDsEl9/6zeQv9AL9yip\nDZaLQCjLknBOJEGp4GRq+q4wInlojDuLz6vDhI9bTyjmf9voUdKlzqTidhfhU7dH\nEYVOFWdVdoYD3k1WURGcXIeo89bw/PySbREKJHcIwc+KNidr155CAh321BCr5Cyv\nEqjXtRXNghCMsahiAIh+jIvndg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "github-deployer@composed-amulet-482806-i3.iam.gserviceaccount.com",
+  "client_id": "109909663690392225734",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/github-deployer%40composed-amulet-482806-i3.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+}}'
 
-      # 2. Get GKE Credentials
+      # 2. Get GKE Credentials to allow kubectl to talk to your cluster
       - uses: google-github-actions/get-gke-credentials@v2
         with:
           cluster_name: '${{ secrets.GKE_CLUSTER }}'
           location: '${{ secrets.GKE_ZONE }}'
 
-      # 3. Build and Push Docker Image
-
+      # 3. Build and Push Docker Image using your Project ID
       - name: Build and Publish
         run: |
-          # Use your Project ID in the image path
+          # Build the image from your 3.1 folder where the Dockerfile is
           docker build -t gcr.io/composed-amulet-482806-i3/ping-pong:$GITHUB_SHA ./3.1
           docker push gcr.io/composed-amulet-482806-i3/ping-pong:$GITHUB_SHA
 
-      # 4. Deploy to Cluster
+      # 4. Deploy to Cluster using the YAMLs in your 3.2 folder
       - name: Deploy
         run: |
+          # This applies your ingress, services, and deployments from 3.2
           kubectl apply -f 3.2/
+          
+          # This ensures the deployment uses the newly built image
+          kubectl set image deployment/pingpong-dep pingpong=gcr.io/composed-amulet-482806-i3/ping-pong:$GITHUB_SHA
