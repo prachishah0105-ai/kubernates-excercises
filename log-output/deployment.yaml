@@ -13,5 +13,11 @@ spec:
         app: log-output
     spec:
       containers:
+      readinessProbe:
+  httpGet:
+    path: /healthz
+    port: 3000 
+  initialDelaySeconds: 20 # We wait longer to let Ping-pong start first
+  periodSeconds: 5
         - name: log-output
           image: <your-docker-hub-username>/log-output:v1.0
