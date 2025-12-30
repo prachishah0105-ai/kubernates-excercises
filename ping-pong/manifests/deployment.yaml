@@ -14,6 +14,12 @@ spec:
         app: ping-pong
     spec:
       containers:
+      readinessProbe:
+  httpGet:
+    path: /healthz
+    port: 3000 # Matches the PORT in your index.js screenshot
+  initialDelaySeconds: 10
+  periodSeconds: 5
         - name: ping-pong
           image: prachishah0105/ping-pong:v1.2 # Update with your image tag
           env:
