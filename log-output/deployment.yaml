@@ -3,20 +3,24 @@ kind: Deployment
 metadata:
   name: log-output-dep
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: log-output
   template:
-    metadata:
-      labels:
-        app: log-output
     spec:
       containers:
-      readinessProbe:
-  httpGet:
-    path: /healthz
-    port: 3000 
+        - name: logoutput-container
+          image: prachishah0105-ai/log-output:v2
+          # --- ADD THIS ---
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+          # ----------------
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
   initialDelaySeconds: 20 # We wait longer to let Ping-pong start first
   periodSeconds: 5
         - name: log-output
